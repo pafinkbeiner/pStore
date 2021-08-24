@@ -3,10 +3,12 @@ import express from 'express';
 import DBProvider from "./db/DBProvider"
 import authRouter from "./auth/authRouter"
 import authMiddleware from "./auth/authMiddleware"
+import cors from "cors"
 
 const app = express();
 
 app.use(bodyParser.json())
+app.use(cors())
 
 const db = DBProvider.getInstance();
 
