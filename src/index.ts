@@ -1,12 +1,15 @@
 import * as bodyParser from 'body-parser';
 import express from 'express';
 import DBProvider from "./db/DBProvider"
+import authRouter from "./auth/authRouter"
 
 const app = express();
 
 app.use(bodyParser.json())
 
 const db = DBProvider.getInstance();
+
+app.use('/auth', authRouter)
 
 // get all 
 app.get('/', (_req, res) => {
