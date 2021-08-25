@@ -1,14 +1,22 @@
 import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken"
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     
-    let authenticated: boolean = false;
+    let token: any = req.headers["authorization"]?.split(" ")[1];
+
+    let secret:any = process.env.JWT_SECRET;
     
-    if(authenticated){
-        next()
-    }else{
-        res.sendStatus(400);
-    }
+    jwt.verify(token, secret, (err: any, decoded: any) => {
+
+        if(err){
+            res.sendStatus(400);
+        }else{
+            next()
+        }
+    })
+
+
 }
 
 export default authMiddleware;

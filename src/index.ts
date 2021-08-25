@@ -1,9 +1,16 @@
 import * as bodyParser from 'body-parser';
+import {cleanEnv, port, str} from 'envalid';
 import express from 'express';
 import DBProvider from "./db/DBProvider"
 import authRouter from "./auth/authRouter"
 import authMiddleware from "./auth/authMiddleware"
 import cors from "cors"
+import 'dotenv/config';
+
+cleanEnv(process.env, {
+  JWT_SECRET: str(),
+  PORT: port(),
+});
 
 const app = express();
 
